@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 
-namespace DwmLutGUI
+namespace TankCCGUI
 {
     public class MonitorData : INotifyPropertyChanged
     {

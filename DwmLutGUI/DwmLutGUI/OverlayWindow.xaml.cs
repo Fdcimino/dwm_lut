@@ -1,4 +1,4 @@
-﻿namespace DwmLutGUI
+﻿namespace TankCCGUI
 {
     public partial class OverlayWindow
     {

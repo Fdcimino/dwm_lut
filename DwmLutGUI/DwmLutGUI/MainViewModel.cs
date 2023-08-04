@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
-namespace DwmLutGUI
+namespace TankCCGUI
 {
     internal class MainViewModel : INotifyPropertyChanged
     {

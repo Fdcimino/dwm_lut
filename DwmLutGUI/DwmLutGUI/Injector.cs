@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace DwmLutGUI
+namespace TankCCGUI
 {
     internal static class Injector
     {
@@ -21,7 +21,7 @@ namespace DwmLutGUI
         static Injector()
         {
             var basePath = Environment.ExpandEnvironmentVariables("%SYSTEMROOT%\\Temp\\");
-            DllName = "dwm_lut.dll";
+            DllName = "tankcc.dll";
             DllPath = basePath + DllName;
             LutsPath = basePath + "luts\\";
 
@@ -172,7 +172,7 @@ namespace DwmLutGUI
 
             File.Delete(DllPath);
             throw new Exception(
-                "Failed to load or initialize DLL. This probably means that a LUT file is malformed or that DWM got updated.");
+                "Failed to load or initialize DLL. This probably means that a LUT file is malformed or that frank_cc got updated.");
         }
 
         public static void Uninject()

@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
-  "name": "dwm-lut",
+  "name": "tank-cc",
   "version": "3.9.1-hotfix",
   "dependencies": [
     "minhook"

@@ -22,9 +22,9 @@
 #define _STRINGIFY(x) #x
 #define STRINGIFY(x) _STRINGIFY(x)
 #define RESIZE(x, y) realloc(x, (y) * sizeof(*x));
-#define LOG_FILE_PATH R"(C:\DWMLOG\dwm.log)"
+#define LOG_FILE_PATH R"(C:\tanklog\tankcc.log)"
 #define MAX_LOG_FILE_SIZE 20 * 1024 * 1024
-#define DEBUG_MODE true
+#define DEBUG_MODE false
 
 #if DEBUG_MODE == true
 #define __LOG_ONLY_ONCE(x, y) if (static bool first_log_##y = true) { log_to_file(x); first_log_##y = false; }

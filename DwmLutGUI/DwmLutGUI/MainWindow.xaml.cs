@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace DwmLutGUI
+namespace TankCCGUI
 {
     public partial class MainWindow
     {
@@ -60,7 +60,7 @@ namespace DwmLutGUI
             }
 
             var notifyIcon = new NotifyIcon();
-            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("DwmLutGUI.smile.ico");
+            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TankCCGUI.smile.ico");
             notifyIcon.Icon = new Icon(stream);
             notifyIcon.Visible = true;
             notifyIcon.DoubleClick +=

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
 
-namespace DwmLutGUI
+namespace TankCCGUI
 {
     public partial class AboutWindow : Window
     {
