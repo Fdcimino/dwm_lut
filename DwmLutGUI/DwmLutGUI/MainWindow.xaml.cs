@@ -7,8 +7,12 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Microsoft.Win32;
+using ContextMenu = System.Windows.Forms.ContextMenu;
+using MenuItem = System.Windows.Forms.MenuItem;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TankCCGUI
@@ -113,6 +117,9 @@ namespace TankCCGUI
             Closed += delegate { notifyIcon.Dispose(); };
 
             SystemEvents.DisplaySettingsChanged += _viewModel.OnDisplaySettingsChanged;
+            App.KListener.KeyDown += MonitorLutToggle;
+            var keys = Enum.GetValues(typeof(Key)).Cast<Key>().ToList();
+            ToggleKeyCombo.ItemsSource = keys;
         }
 
         protected override void OnStateChanged(EventArgs e)
@@ -170,7 +177,7 @@ namespace TankCCGUI
 
         private void SdrLutClear_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.SdrLutPath = null;
+            _viewModel.SdrLutPath = "None";
         }
 
         private void HdrLutBrowse_Click(object sender, RoutedEventArgs e)
@@ -185,7 +192,7 @@ namespace TankCCGUI
 
         private void HdrLutClear_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.HdrLutPath = null;
+            _viewModel.HdrLutPath = "None";
         }
 
         private void Disable_Click(object sender, RoutedEventArgs e)
@@ -237,6 +244,45 @@ namespace TankCCGUI
             overlay.Show();
             Thread.Sleep(50);
             overlay.Close();
+        }
+
+        private void RemoveSdrLut_Click(object sender, RoutedEventArgs e)
+        {
+            var monitor = _viewModel.SelectedMonitor;
+            if (monitor == null) return;
+            monitor.SdrLuts.Remove(monitor.SdrLutPath);
+            var anySdrLut = monitor.SdrLuts.FirstOrDefault();
+            monitor.SdrLutPath = anySdrLut ?? "None";
+        }
+
+        private void MonitorLutToggle(object sender, RawKeyEventArgs e)
+        {
+            if (e.Key != (Key)ToggleKeyCombo.SelectedItem) return;
+            var monitor = _viewModel.SelectedMonitor;
+            if (monitor == null) return;
+            if (monitor.SdrLutFilename != "None")
+            {
+                _viewModel.SdrLutPath =
+                    monitor.SdrLuts[(monitor.SdrLuts.IndexOf(monitor.SdrLutPath) + 1) % monitor.SdrLuts.Count];
+            }
+            else
+            {
+                _viewModel.HdrLutPath = monitor.HdrLuts[(monitor.HdrLuts.IndexOf(monitor.HdrLutPath) + 1) % monitor.HdrLuts.Count];
+            }
+
+            if (_viewModel.IsActive)
+            {
+                Disable_Click(null, null);
+                Apply_Click(null, null);
+            }
+        }
+
+        private void RemoveHdrLut_Click(object sender, RoutedEventArgs e)
+        {
+            var monitor = _viewModel.SelectedMonitor;
+            if (monitor == null) return;
+            monitor.HdrLuts.Remove(monitor.HdrLutPath);
+            monitor.HdrLutPath = monitor.HdrLuts.FirstOrDefault() ?? "None";
         }
     }
 }
